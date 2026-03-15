@@ -1,7 +1,6 @@
 // AuthPage.tsx
 import React, { useState, useCallback } from "react";
 import styles from "./Authpage.module.css";
-import { useNavigate } from "react-router-dom";
 
 /* ─── Types ───────────────────────────────────────────────── */
 type Tab = "login" | "signup";
@@ -221,6 +220,12 @@ const AuthPage: React.FC = () => {
     if (Object.keys(errs).length) return;
     setLoading(true);
     // TODO: dispatch signup API call
+    console.log("Signup data:", signup);
+    try{
+      const res = axios.post("http://localhost:8080/api/auth/signup", signup);
+    }catch(err){
+      console.error("Signup error:", err);
+    }
     setTimeout(() => setLoading(false), 1800);
   };
 

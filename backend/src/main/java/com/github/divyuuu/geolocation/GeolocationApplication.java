@@ -8,6 +8,7 @@ public class GeolocationApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GeolocationApplication.class, args);
+		System.out.println("This is working spring boot application");
 	}
 
 }

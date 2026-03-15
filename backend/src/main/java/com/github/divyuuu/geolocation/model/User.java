@@ -19,14 +19,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Setter(AccessLevel.NONE)
     private UUID uuid;
-    private String name;
+
     @Column(unique = true, nullable = false)
     private String email;
-    private String password;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private String name;
+    private String password;
     private Double rating;
     private Integer totalRides;
+
     @OneToOne(mappedBy = "user")
     private Driver driver;
     @OneToOne(mappedBy = "user")
