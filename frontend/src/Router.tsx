@@ -1,18 +1,24 @@
 // Router.tsx
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import AuthPage from "./pages/Authpage";
-// import HomePage from "./pages/HomePage"; // add your pages here as you build them
+import Landing from "./pages/LandingPage/LandingPage";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* Landing Page */}
+        <Route path="/" element={<Landing />} />
+
+        {/* Auth Page */}
         <Route path="/auth" element={<AuthPage />} />
 
-        <Route path="/" element={<Navigate to="/auth" replace />} />
-
         {/* fallback */}
-        <Route path="*" element={<Navigate to="/auth" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+
       </Routes>
     </BrowserRouter>
   );

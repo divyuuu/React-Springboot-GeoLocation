@@ -1,6 +1,7 @@
 // AuthPage.tsx
 import React, { useState, useCallback } from "react";
 import styles from "./Authpage.module.css";
+import { useNavigate } from "react-router-dom";
 
 /* ─── Types ───────────────────────────────────────────────── */
 type Tab = "login" | "signup";
@@ -230,17 +231,19 @@ const AuthPage: React.FC = () => {
     setSignupErrors({});
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className={styles.page}>
       {/* ─── Left Panel ─── */}
       <aside className={styles.leftPanel}>
         <div className={styles.mapGrid} aria-hidden="true" />
 
-        <div className={styles.brand}>
+        <div className={styles.brand} onClick={() => {navigate("/")}}>
           <div className={styles.logoMark}>
             <IconPin />
           </div>
-          <span className={styles.brandName}>Ryde</span>
+          <span className={styles.brandName} >Ryde</span>
         </div>
 
         <div className={styles.heroCopy}>
