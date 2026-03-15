@@ -1,4 +1,4 @@
-import "./features.css";
+import styles from "./Features.module.css";
 
 const features = [
   {
@@ -17,15 +17,15 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="features">
-      <div className="container">
+    <section className={styles.features} >
+      <div className={styles.container} >
 
         <h2>Why choose Ryde</h2>
 
-        <div className="feature-grid">
+        <div className={styles.featureGrid}>
 
           {features.map((f, i) => (
-            <div className="feature-card" key={i}>
+            <div className={styles.featureCard} key={i}>
               <h3>{f.title}</h3>
               <p>{f.desc}</p>
             </div>

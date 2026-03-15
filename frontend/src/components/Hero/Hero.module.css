@@ -2,30 +2,30 @@
   padding:50px 89px 0;
 }
 
-.hero-inner{
+.heroInner{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:60px;
 }
 
-.hero-text h1{
+.heroText h1{
   font-family:var(--font-display);
   font-size:56px;
   line-height:1.1;
 }
 
-.hero-text span{
+.heroText span{
   color:var(--accent);
 }
 
-.hero-text p{
+.heroText p{
   margin-top:20px;
   color:var(--text-secondary);
   max-width:500px;
 }
 
-.hero-buttons{
+.heroButtons{
   margin-top:30px;
   display:flex;
   gap:16px;
@@ -48,7 +48,7 @@
   border:1px solid var(--border);
 }
 
-.hero-card{
+.heroCard{
   background:var(--bg-panel);
   padding:28px;
   border-radius:var(--radius);
@@ -56,7 +56,7 @@
   border:1px solid var(--border);
 }
 
-.hero-card input{
+.heroCard input{
   width:92%;
   margin-top:12px;
   padding:12px;
@@ -66,11 +66,34 @@
   border-radius:var(--radius-sm);
 }
 
-.ride-btn{
+.rideBtn{
   margin-top:16px;
   width:100%;
   background:var(--accent);
   padding:12px;
   border-radius:var(--radius-sm);
   cursor: pointer;
+}
+@media (max-width:768px){
+
+  .hero{
+    padding:40px 24px 0;
+  }
+
+  .heroInner{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:40px;
+    align-items: center;
+  }
+
+  .heroText h1{
+    font-size:36px;
+  }
+
+.heroButtons{
+  justify-content: center;
+}
+
+
 }

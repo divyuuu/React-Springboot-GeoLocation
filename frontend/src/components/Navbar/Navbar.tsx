@@ -1,5 +1,6 @@
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const IconPin = () => (
   <svg
@@ -18,11 +19,13 @@ const IconPin = () => (
 export default function Navbar() {
 
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <nav className={styles.navbar}>
       <div className={`container ${styles.navInner}`}>
 
+        {/* Brand */}
         <div
           className={styles.brand}
           onClick={() => navigate("/")}
@@ -36,13 +39,27 @@ export default function Navbar() {
           </span>
         </div>
 
-        <div className={styles.navLinks}>
+        {/* Desktop Links */}
+        <div className={`${styles.navLinks} ${menuOpen ? styles.showMenu : ""}`}>
           <a href="#">Home</a>
           <a href="#">Features</a>
           <a href="#">How it works</a>
           <a href="#">Contact</a>
+
+          <div className={styles.mobileActions}>
+            <button
+  onClick={() => {
+    setMenuOpen(false);
+    navigate("/auth");
+  }}
+>
+  Login
+</button>
+            <button onClick={() => navigate("/auth")}>Sign Up</button>
+          </div>
         </div>
 
+        {/* Desktop Buttons */}
         <div className={styles.navActions}>
           <button
             className={styles.login}
@@ -57,6 +74,16 @@ export default function Navbar() {
           >
             Sign Up
           </button>
+        </div>
+
+        {/* Hamburger */}
+        <div
+          className={styles.hamburger}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
 
       </div>

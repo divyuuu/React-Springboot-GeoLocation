@@ -1,11 +1,11 @@
-import "./hero.css";
+import styles from "./Hero.module.css";
 
 export default function Hero() {
   return (
-    <section className="hero">
-      <div className="container hero-inner">
+    <section className={styles.hero}>
+      <div className={`container ${styles.heroInner}`}>
 
-        <div className="hero-text">
+        <div className={styles.heroText}>
 
           <h1>
             Move smarter with <span>Ryde</span>
@@ -13,24 +13,29 @@ export default function Hero() {
 
           <p>
             Book rides instantly, share trips, and travel across the city
-            with premimum and reliable rides.
+            with premium and reliable rides.
           </p>
 
-          <div className="hero-buttons">
-            <button className="primary">Book a Ride</button>
-            <button className="secondary">Become a Driver</button>
+          <div className={styles.heroButtons}>
+            <button className={styles.primary}>
+              Book a Ride
+            </button>
+
+            <button className={styles.secondary}>
+              Become a Driver
+            </button>
           </div>
 
         </div>
 
-        <div className="hero-card">
+        <div className={styles.heroCard}>
 
           <h3>Book your ride</h3>
 
           <input placeholder="Pickup location" />
           <input placeholder="Drop location" />
 
-          <button className="ride-btn">
+          <button className={styles.rideBtn}>
             Find Ride
           </button>
 
