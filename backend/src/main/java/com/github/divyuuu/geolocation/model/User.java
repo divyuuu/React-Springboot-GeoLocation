@@ -1,6 +1,5 @@
 package com.github.divyuuu.geolocation.model;
 
-
 import jakarta.persistence.*;
 
 import lombok.AccessLevel;
@@ -23,26 +22,17 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-<<<<<<< HEAD
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-=======
->>>>>>> refactor/backend-entities
     private String name;
     private String password;
     private Double rating;
     private Integer totalRides;
 
-<<<<<<< HEAD
-=======
     @Enumerated(EnumType.STRING)
     private Role role;
-    
->>>>>>> refactor/backend-entities
+
     @OneToOne(mappedBy = "user")
     private Driver driver;
-    
+
     @OneToOne(mappedBy = "user")
     private Passenger passenger;
 }

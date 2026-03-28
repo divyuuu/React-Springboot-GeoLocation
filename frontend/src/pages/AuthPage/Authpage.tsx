@@ -195,13 +195,19 @@ const AuthPage: React.FC = () => {
     []
   );
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validateLogin(login);
     setLoginErrors(errs);
     if (Object.keys(errs).length) return;
     setLoading(true);
     // TODO: dispatch login API call
+    try{
+      const res = await axios.post("http://localhost:8080/api/auth/login", login);
+    }
+    catch(err){
+      console.error("Login error:", err);
+    }
     setTimeout(() => setLoading(false), 1800);
   };
 
