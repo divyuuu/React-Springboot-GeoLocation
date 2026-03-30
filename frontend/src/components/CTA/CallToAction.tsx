@@ -8,7 +8,7 @@ export default function CTA(){
 
         <h2>Ready to start your ride?</h2>
 
-        <button>
+        <button className="cta-download-btn">
           Download App
         </button>
 

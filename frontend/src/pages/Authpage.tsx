@@ -1,6 +1,8 @@
 // AuthPage.tsx
 import React, { useState, useCallback } from "react";
 import styles from "./Authpage.module.css";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 /* ─── Types ───────────────────────────────────────────────── */
 type Tab = "login" | "signup";

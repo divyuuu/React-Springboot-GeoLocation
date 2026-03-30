@@ -47,7 +47,8 @@ export default function Navbar() {
           <a href="#">Contact</a>
 
           <div className={styles.mobileActions}>
-            <button
+            <button 
+            className={styles.login}
   onClick={() => {
     setMenuOpen(false);
     navigate("/auth");
@@ -55,7 +56,6 @@ export default function Navbar() {
 >
   Login
 </button>
-            <button onClick={() => navigate("/auth")}>Sign Up</button>
           </div>
         </div>
 
@@ -68,12 +68,6 @@ export default function Navbar() {
             Login
           </button>
 
-          <button
-            className={styles.signup}
-            onClick={() => navigate("/auth")}
-          >
-            Sign Up
-          </button>
         </div>
 
         {/* Hamburger */}
