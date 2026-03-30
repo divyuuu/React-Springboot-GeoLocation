@@ -1,8 +1,6 @@
 // AuthPage.tsx
 import React, { useState, useCallback } from "react";
 import styles from "./Authpage.module.css";
-import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 
 /* ─── Types ───────────────────────────────────────────────── */
 type Tab = "login" | "signup";
@@ -19,10 +17,6 @@ interface SignupForm {
   password: string;
   confirmPassword: string;
   role: Role;
-  // Driver-only
-  vehicleNumber: string;
-  vehicleModel: string;
-  licenseNumber: string;
 }
 
 interface FieldErrors {
@@ -64,14 +58,6 @@ const IconCar = () => (
     <circle cx="7.5" cy="17" r="1.5" />
     <circle cx="16.5" cy="17" r="1.5" />
     <path d="M5 12h14" />
-  </svg>
-);
-
-const IconId = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="5" width="20" height="14" rx="2" />
-    <circle cx="8" cy="12" r="2" />
-    <path d="M13 10h5M13 14h3" />
   </svg>
 );
 
@@ -126,11 +112,6 @@ function validateSignup(form: SignupForm): FieldErrors {
   else if (form.password.length < 6) e.password = "Minimum 6 characters";
   if (!form.confirmPassword) e.confirmPassword = "Please confirm your password";
   else if (form.password !== form.confirmPassword) e.confirmPassword = "Passwords do not match";
-  if (form.role === "DRIVER") {
-    if (!form.vehicleNumber.trim()) e.vehicleNumber = "Vehicle number is required";
-    if (!form.vehicleModel.trim()) e.vehicleModel = "Vehicle model is required";
-    if (!form.licenseNumber.trim()) e.licenseNumber = "License number is required";
-  }
   return e;
 }
 
@@ -195,7 +176,6 @@ const AuthPage: React.FC = () => {
   const [signup, setSignup] = useState<SignupForm>({
     name: "", email: "", password: "", confirmPassword: "",
     role: "PASSENGER",
-    vehicleNumber: "", vehicleModel: "", licenseNumber: "",
   });
   const [signupErrors, setSignupErrors] = useState<FieldErrors>({});
 
@@ -205,30 +185,49 @@ const AuthPage: React.FC = () => {
     []
   );
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validateLogin(login);
     setLoginErrors(errs);
     if (Object.keys(errs).length) return;
     setLoading(true);
-    // TODO: dispatch login API call
-    setTimeout(() => setLoading(false), 1800);
+    try {
+      const res = await axios.post("http://localhost:8080/api/auth/login", login);
+      if (res.status === 200 || res.status === 201) {
+        toast.success("Logged in successfully.");
+        setTimeout(() => navigate("/"), 1200);
+      } else {
+        toast.error("Unable to sign in. Please check your credentials.");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      toast.error("Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validateSignup(signup);
     setSignupErrors(errs);
     if (Object.keys(errs).length) return;
     setLoading(true);
-    // TODO: dispatch signup API call
-    console.log("Signup data:", signup);
-    try{
-      const res = axios.post("http://localhost:8080/api/auth/signup", signup);
-    }catch(err){
+    try {
+      const res = await axios.post("http://localhost:8080/api/auth/signup", signup);
+      if (res.status === 200 || res.status === 201) {
+        toast.success("Account created successfully.");
+        setSignup({ name: "", email: "", password: "", confirmPassword: "", role: "PASSENGER" });
+        setTimeout(() => switchTab("login"), 1200);
+      } else {
+        toast.error("Signup failed. Please try again.");
+      }
+    } catch (err) {
       console.error("Signup error:", err);
+      toast.error("Signup failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    setTimeout(() => setLoading(false), 1800);
   };
 
   const switchTab = (t: Tab) => {
@@ -439,7 +438,7 @@ const AuthPage: React.FC = () => {
                 </div>
 
                 {/* Driver-only fields */}
-                {signup.role === "DRIVER" && (
+                {/* {signup.role === "DRIVER" && (
                   <div className={styles.driverFields}>
                     <span className={styles.driverFieldsLabel}>Vehicle details</span>
                     <InputField
@@ -467,7 +466,7 @@ const AuthPage: React.FC = () => {
                       error={signupErrors.licenseNumber}
                     />
                   </div>
-                )}
+                )} */}
               </div>
 
               <div className={styles.divider}>
@@ -496,6 +495,16 @@ const AuthPage: React.FC = () => {
 
         </div>
       </main>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
     </div>
   );
 };

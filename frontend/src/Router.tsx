@@ -2,7 +2,7 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import AuthPage from "./pages/Authpage";
+import AuthPage from "./pages/AuthPage/Authpage";
 import Landing from "./pages/LandingPage/LandingPage";
 
 const Router = () => {
